@@ -152,7 +152,7 @@ AXONOPS_TICK=10
 AXONOPS_CONFIDENCE_AUTO=0.85
 AXONOPS_CONFIDENCE_NOTIFY=0.60
 DATABASE_URL=                    # blank = SQLite dev mode
-SLACK_WEBHOOK_URL=               # optional notifications
+SLACK_WEBHOOK_URL=               # optional notification
 AWS_REGION=us-east-1
 ```
 
