@@ -19,7 +19,7 @@ from axonops_sdk import (
 
 try:
     import boto3
-    from botocore.exceptions import BotoCoreError, ClientError
+    
     BOTO3_AVAILABLE = True
 except ImportError:
     BOTO3_AVAILABLE = False

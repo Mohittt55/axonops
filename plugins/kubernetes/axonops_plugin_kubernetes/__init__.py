@@ -18,7 +18,7 @@ from axonops_sdk import (
 
 try:
     from kubernetes import client as k8s_client, config as k8s_config
-    from kubernetes.client.rest import ApiException
+    
     K8S_AVAILABLE = True
 except ImportError:
     K8S_AVAILABLE = False
@@ -69,9 +69,12 @@ class KubernetesCollector(BaseCollector):
             for pod in pods.items:
                 total += 1
                 phase = pod.status.phase or "Unknown"
-                if phase == "Running":   running += 1
-                elif phase == "Pending": pending += 1
-                elif phase == "Failed":  failed  += 1
+                if phase == "Running":
+                        running += 1
+                elif phase == "Pending":
+                        pending += 1
+                elif phase == "Failed":
+                        failed += 1
 
                 # Restart count
                 for cs in (pod.status.container_statuses or []):
@@ -238,9 +241,9 @@ class KubernetesStrategy(BaseStrategy):
         metrics: MetricBatch,
         context: list[Episode],
     ) -> Decision | None:
-        pending      = metrics.get_value("k8s_pods_pending")
+        
         failed       = metrics.get_value("k8s_pods_failed")
-        restarts     = metrics.get_value("k8s_restarts_total")
+        
         dep_total    = metrics.get_value("k8s_deployments_total")
         dep_available= metrics.get_value("k8s_deployments_available")
         namespace    = metrics.metadata.get("namespace", "default")

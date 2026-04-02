@@ -17,15 +17,7 @@ from axonops_sdk import (
     Decision, Episode, Metric, MetricBatch,
 )
 
-try:
-    import httpx
-    HTTP_AVAILABLE = True
-except ImportError:
-    try:
-        import urllib.request
-        HTTP_AVAILABLE = True
-    except ImportError:
-        HTTP_AVAILABLE = False
+HTTP_AVAILABLE = True
 
 
 def _scrape(url: str, timeout: float = 5.0) -> str:

@@ -20,7 +20,7 @@ from axonops_sdk import (
 
 try:
     import docker
-    from docker.errors import DockerException
+    
     DOCKER_AVAILABLE = True
 except ImportError:
     DOCKER_AVAILABLE = False

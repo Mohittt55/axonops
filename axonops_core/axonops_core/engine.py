@@ -202,7 +202,7 @@ class AxonOpsEngine:
 
     async def _execute(self, decision: Decision) -> ActionResult:
         """Find the right action plugin and execute."""
-        action_name = decision.action.action_type.value
+        
         # Try matching action plugin by target type hint in params
         source = decision.action.params.get("source", list(self.actions.keys())[0] if self.actions else None)
         executor = self.actions.get(source) or (list(self.actions.values())[0] if self.actions else None)
@@ -321,7 +321,7 @@ class AxonOpsEngine:
             async with AsyncSessionLocal() as session:
                 stmt = (
                     select(EpisodeRecord)
-                    .where(EpisodeRecord.was_successful == True)
+                    .where(EpisodeRecord.was_successful)
                     .order_by(EpisodeRecord.time.desc())
                     .limit(limit)
                 )
