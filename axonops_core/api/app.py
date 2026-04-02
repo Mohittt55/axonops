@@ -6,7 +6,6 @@ FastAPI application — REST endpoints + WebSocket live feed for the UI.
 from __future__ import annotations
 
 import asyncio
-import json
 import logging
 from contextlib import asynccontextmanager
 from typing import Any

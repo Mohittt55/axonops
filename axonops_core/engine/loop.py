@@ -314,7 +314,7 @@ class AxonOpsEngine:
         item["status"] = "approved"
 
         # Re-construct the decision from queue entry and execute
-        from axonops_sdk import Action, ActionType
+        from axonops_sdk import Action
         action = Action(
             action_id   = action_id,
             action_type = ActionType(item["action_type"]),

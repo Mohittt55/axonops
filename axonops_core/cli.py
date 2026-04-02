@@ -34,7 +34,7 @@ def main() -> None:
         cfg.environment   = args.env
 
         app = create_app(cfg)
-        print(f"\n  AxonOps v1.0.0  —  Neural Infrastructure Engine")
+        print("\n  AxonOps v1.0.0  —  Neural Infrastructure Engine")
         print(f"  API  →  http://{args.host}:{args.port}")
         print(f"  Docs →  http://{args.host}:{args.port}/docs")
         print(f"  WS   →  ws://{args.host}:{args.port}/ws\n")

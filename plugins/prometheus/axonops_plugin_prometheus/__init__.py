@@ -149,7 +149,8 @@ class PrometheusAction(BaseAction):
         start = time.monotonic()
         try:
             if self.webhook_url and action.action_type == ActionType.NOTIFY:
-                import json, urllib.request
+                import json
+                import urllib.request
                 payload = json.dumps({
                     "text": f"[AxonOps] {action.reason}",
                     "action_id": action.action_id,

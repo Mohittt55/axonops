@@ -45,14 +45,16 @@ def main() -> None:
         import httpx
         try:
             r = httpx.get("http://localhost:8000/api/status", timeout=3)
-            import json, pprint
+            import json
+            import pprint
             pprint.pprint(r.json())
         except Exception as e:
             print(f"Could not reach AxonOps API: {e}", file=sys.stderr)
             sys.exit(1)
 
     elif args.command == "logs":
-        import asyncio, json
+        import asyncio
+        import json
         import websockets
 
         async def tail(url: str) -> None:

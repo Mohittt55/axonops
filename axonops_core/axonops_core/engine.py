@@ -15,12 +15,11 @@ import json
 import logging
 import uuid
 from datetime import datetime
-from typing import Any, Callable
+from typing import Callable
 
 from axonops_sdk import (
-    Action, ActionResult, ActionStatus, ActionType,
-    BaseAction, BaseCollector, BaseStrategy,
-    ConfidenceTier, Decision, Episode, MetricBatch,
+    ActionResult, ActionStatus, BaseAction, BaseCollector, BaseStrategy,
+    ConfidenceTier, Decision, MetricBatch,
     load_actions, load_collectors, load_strategies,
 )
 
@@ -169,7 +168,6 @@ class AxonOpsEngine:
         tasks = [c.collect() for c in self.collectors]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
-        from axonops_sdk import Metric
         import socket
         merged = MetricBatch(source="merged", host=socket.gethostname())
         for r in results:
