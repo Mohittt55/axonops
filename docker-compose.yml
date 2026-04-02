@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+
+  # ── AxonOps Engine + API ───────────────────────────────────────────────────
+  axonops:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: axonops
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - AXONOPS_ENV=development
+      - AXONOPS_TICK=10
+      - AXONOPS_LOG_LEVEL=INFO
+    volumes:
+      - axonops_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - axonops_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ── UI (nginx) ─────────────────────────────────────────────────────────────
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile.ui
+    container_name: axonops-ui
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - axonops
+    networks:
+      - axonops_net
+
+  # ── TimescaleDB ────────────────────────────────────────────────────────────
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: axonops-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: axonops
+      POSTGRES_USER: axonops
+      POSTGRES_PASSWORD: axonops_dev_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescale_data:/var/lib/postgresql/data
+    networks:
+      - axonops_net
+
+volumes:
+  axonops_data:
+  timescale_data:
+
+networks:
+  axonops_net:
+    driver: bridge

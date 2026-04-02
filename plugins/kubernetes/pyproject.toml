@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "axonops-plugin-kubernetes"
+version = "1.0.0"
+description = "AxonOps plugin — Kubernetes cluster monitoring and management"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+dependencies = ["axonops-sdk>=1.0.0", "kubernetes>=28.0"]
+
+[project.entry-points."axonops.collectors"]
+kubernetes = "axonops_plugin_kubernetes:KubernetesCollector"
+
+[project.entry-points."axonops.actions"]
+kubernetes = "axonops_plugin_kubernetes:KubernetesAction"
+
+[project.entry-points."axonops.strategies"]
+kubernetes = "axonops_plugin_kubernetes:KubernetesStrategy"
+
+[tool.hatch.build.targets.wheel]
+packages = ["axonops_plugin_kubernetes"]

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "axonops-sdk"
+version = "1.0.0"
+description = "SDK for building AxonOps plugins — Collector, Action, and Strategy interfaces"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+authors = [{ name = "Mohit Mahajan" }]
+keywords = ["axonops", "infrastructure", "ai", "devops", "plugin-sdk"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/yourusername/axonops"
+Documentation = "https://github.com/yourusername/axonops/tree/main/docs"
+
+[tool.hatch.build.targets.wheel]
+packages = ["axonops_sdk"]

@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "axonops-plugin-prometheus"
+version = "1.0.0"
+description = "AxonOps plugin — Prometheus /metrics endpoint scraping"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+dependencies = ["axonops-sdk>=1.0.0", "httpx>=0.27"]
+
+[project.entry-points."axonops.collectors"]
+prometheus = "axonops_plugin_prometheus:PrometheusCollector"
+
+[project.entry-points."axonops.actions"]
+prometheus = "axonops_plugin_prometheus:PrometheusAction"
+
+[project.entry-points."axonops.strategies"]
+prometheus = "axonops_plugin_prometheus:PrometheusStrategy"
+
+[tool.hatch.build.targets.wheel]
+packages = ["axonops_plugin_prometheus"]

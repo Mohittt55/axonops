@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "axonops-plugin-docker"
+version = "1.0.0"
+description = "AxonOps plugin — Docker container monitoring and management"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+dependencies = ["axonops-sdk>=1.0.0", "docker>=6.0"]
+
+[project.entry-points."axonops.collectors"]
+docker = "axonops_plugin_docker:DockerCollector"
+
+[project.entry-points."axonops.actions"]
+docker = "axonops_plugin_docker:DockerAction"
+
+[project.entry-points."axonops.strategies"]
+docker = "axonops_plugin_docker:DockerStrategy"
+
+[tool.hatch.build.targets.wheel]
+packages = ["axonops_plugin_docker"]

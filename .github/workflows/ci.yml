@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install SDK and plugins
+        run: |
+          pip install -e ./axonops_sdk
+          pip install -e ./plugins/psutil
+          pip install -e ./plugins/docker
+          pip install -e ./plugins/prometheus
+          pip install -e ./plugins/kubernetes
+          pip install -e ./plugins/aws
+          pip install -e ./axonops_core
+          pip install pytest pytest-asyncio ruff mypy
+
+      - name: Lint
+        run: ruff check axonops_sdk/ axonops_core/ plugins/
+
+      - name: Type check SDK
+        run: mypy axonops_sdk/axonops_sdk/ --ignore-missing-imports
+
+      - name: Run tests
+        run: pytest plugins/ axonops_sdk/ -v --tb=short
+
+  ui:
+    name: UI build check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - run: cd ui && npm ci
+      - run: cd ui && npm run build

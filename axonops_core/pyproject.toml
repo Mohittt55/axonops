@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "axonops-core"
+version = "1.0.0"
+description = "AxonOps — Neural Infrastructure Engine (core)"
+requires-python = ">=3.11"
+license = { text = "BSL-1.1" }
+authors = [{ name = "Mohit Mahajan" }]
+dependencies = [
+    "axonops-sdk>=1.0.0",
+    "fastapi>=0.111",
+    "uvicorn[standard]>=0.29",
+    "websockets>=12.0",
+    "sqlalchemy>=2.0",
+    "asyncpg>=0.29",
+    "psycopg2-binary>=2.9",
+    "numpy>=1.26",
+    "scikit-learn>=1.4",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.2",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+]
+
+[project.scripts]
+axonops = "axonops_core.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["axonops_core"]
